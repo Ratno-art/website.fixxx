@@ -8,6 +8,7 @@ mqtt_sub_test.log
 
 # Local environment files
 .env
+.streamlit/secrets.toml
 venv/
 .venv/
 

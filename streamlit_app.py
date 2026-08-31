@@ -3,11 +3,21 @@ import pymysql
 import streamlit as st
 import time
 
-DB_HOST = "127.0.0.1"
-DB_USER = "root"
-DB_PASSWORD = ""
-DB_NAME = "tambak_monitoring"
-TABLE_NAME = "monitoring_air"
+
+def get_mysql_secret(name, default):
+    try:
+        mysql_secrets = st.secrets.get("mysql", {})
+        return mysql_secrets.get(name, default)
+    except Exception:
+        return default
+
+
+DB_HOST = get_mysql_secret("host", "127.0.0.1")
+DB_PORT = int(get_mysql_secret("port", 3306))
+DB_USER = get_mysql_secret("user", "root")
+DB_PASSWORD = get_mysql_secret("password", "")
+DB_NAME = get_mysql_secret("database", "tambak_monitoring")
+TABLE_NAME = get_mysql_secret("table", "monitoring_air")
 
 QOS_COLUMNS = {
     "THROUGHPUT": "FLOAT DEFAULT 0",
@@ -242,6 +252,7 @@ st.markdown(
 def get_connection():
     return pymysql.connect(
         host=DB_HOST,
+        port=DB_PORT,
         user=DB_USER,
         password=DB_PASSWORD,
         database=DB_NAME,
