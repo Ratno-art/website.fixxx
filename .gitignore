@@ -1,0 +1,18 @@
+__pycache__/
+*.pyc
+
+# Local runtime logs
+mqtt_debug.out
+mqtt_debug.err
+mqtt_sub_test.log
+
+# Local environment files
+.env
+venv/
+.venv/
+
+# Editor/system files
+.vscode/
+.idea/
+Thumbs.db
+Desktop.ini
